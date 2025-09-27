@@ -1,0 +1,37 @@
+#uselib "user32.dll"
+#func SetProcessDPIAware "SetProcessDPIAware"
+#func SetProcessDpiAwarenessContext "SetProcessDpiAwarenessContext" int
+
+dim DPIMode,4
+DPIMode=getini_int("init","IsEnableDPI",0)
+switch DPIMode
+	case 0	//é©ìÆîªíË
+		if varptr(SetProcessDpiAwarenessContext) {
+			SetProcessDpiAwarenessContext -4
+			DPIMode=1		//ç≈êVî≈(1)
+		}else{
+			if varptr(SetProcessDPIAware) {
+				SetProcessDPIAware
+				DPIMode=2	//å√Ç¢î≈(2)
+			}
+		}
+		swbreak
+	case 1	//ç≈êVî≈Çñæé¶
+		if varptr(SetProcessDpiAwarenessContext) {
+			SetProcessDpiAwarenessContext -4
+			DPIMode=1		//ç≈êVî≈(1)
+		}else{
+			DPIMode=-1		//ñ≥å¯(-1)
+		}
+		swbreak
+	case 2
+		if varptr(SetProcessDPIAware) {
+			SetProcessDPIAware
+			DPIMode=2		//å√Ç¢î≈(2)
+		}else{
+			DPIMode=-1		//ñ≥å¯(-1)
+		}
+		swbreak
+	default
+		DPIMode=-1			//ñ≥å¯
+swend

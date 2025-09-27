@@ -1,0 +1,2 @@
+screen 0,getini_int("init","WindowSizeX",1200),getini_int("init","WindowSizeY",700),0
+width ,,getini_int("init","WindowPosX",(ginfo(20)-ginfo(10))/2),getini_int("init","WindowPosY",(ginfo(21)-ginfo(11))/2)

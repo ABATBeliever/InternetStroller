@@ -1,0 +1,14 @@
+sdim Language
+Language=getini_str("init","Language","jp")
+switch Language
+	case "jp"
+		dialog "日本語が指定されました"
+		swbreak
+	case "en"
+		dialog "English is selected"
+		swbreak
+	default
+		dialog "Language : "+Language
+		dialog "言語ファイル読み込みはまだサポートしてないよ☆"
+		swbreak
+swend

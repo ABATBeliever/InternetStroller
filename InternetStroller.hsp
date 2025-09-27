@@ -1,0 +1,97 @@
+/*
+
+InternetStroller 4.0.x.x Syncria
+
+................................................................
+..........................WHHHB+&J.HHHBW........................
+......................BwwwuuuuuuuuuuzuzvwOJBW.......HH..B+J.H...
+..................BwwZZZZZZuZZuuuuuuuuuuuuzzzd..BwwzzzzzuzzzzvdH
+................wZZZZZZZZZZZZZZZZZZuuuVz<<?zXuuzuuzzzuzzzuzzzzzr
+..............ZXyyyyyyZyZZZZZZZZZZZZZVz~~~~~?zuuuuuwwZu..Ovuzzzr
+...........#(XyyyyyyyyyyyyyZyZZZZZZX0<:~:~~~:(1XuuXwvW..Bwuzuzwg
+..........BZXVVVVVyyyyyyyXUUVTT7OOCz<~~~:~:~~~~<OXuuXd.zwuuuzwd.
+.........BwVVVVVVVVVWXU4kC~~:~~~:~~:~~~:~~~:~~:_(OZZZuuZuuuuwd..
+........NwfffffVWXQ.d.N.@_~~~:~~~~~~:~:~~:~~:((zwX0OXZZZZuXd....
+.......#XWpWWW.dN.....SyI:~:~~:~::~:~~~:~~:((zXX0z<~<zXuXd......
+.......NXWkdN......WXWW0<~~:~~~:~~~~:~~::(+wXX0<<~~((zwd........
+........N.......WXfpfpSz~:~~:~~~:~:~~:_(jwy00<<~~(+zId..........
+.............SdWpppppWC:~~:~~:~:~~~:_(jwy00<~~~(+zdNg...........
+...........NWWkkbbWWUC<~~~:~~:~~:~_(uXV0C<:~~_+dNN......UH......
+........W.WkkkHW0C<<<~~~:~~:~~:~((uXW0C<~~~_(jN......HuZkd......
+......HXWkqqH0<<~~~:~~:~~:~~:~(+dWW0C<~~:_(gg....HHXXVVVSd......
+.....XHq.qqHC~~:~:~~:~~:~~:~(jdWHUC<~~~~(g..HHuXWfppfpfWXg......
+..NdH....qqHz_::::::::::_((&dkH0z<~~:((J.XWWppppppppfpfSd.......
+..WHgggHHkHHkkkkkkkkkkkkkWWkH0>:~~(jdWWkbbbbbbpbppppppWX........
+.WggggHXJNkHUTTTTTTTTTTTTTTC<:~:(jkkkkkkkkkkkkkbbbbbpWX.........
+WggggHU..N+Rz~~~~~~~~~~~~~~~:((uXqqqqqqqkqkkkkkkkkkH0Z..........
+Wgggg..ggggHA&&&&&&&&&&&&&&edXH.qqqqqqqkqqqkqqkkkkHWd...........
+kH.gggggggg.HHHWHgggggggggggg.......qqqqqqqqqqqkHWd.............
+.NQHUWW9WHQ.d..NiHHHggggggggggggggg........qqHHWd...............
+..................NQkHHggggggggggggggggg..HWUW..................
+......................NQQHHHHH.gg.g.HHHHH.(N....................
+................................................................
+
+
+GithubRepository: https://github.com/ABATBeliever/InternetStroller
+OfficialWebsite : https://abatbeliever.net/InternetStroller/
+
+ THIS SOFTWARE IS DEVELOPED BY INDIVIDUALS UNDER AN OPEN-SOURSE LICENSE WITH
+ THE HELP OF NUMEROUS DEBUGGERS AND ADVISORS.
+
+MIT LICENSE
+
+Copyright (c) 2021-2025 ABATBeliever
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+IN THE SOFTWARE.
+
+*/
+
+//==========================================================================
+#include "hsp3utf.as"
+
+#packopt version "Build.ini"	//詳細
+#packopt icon "image.ico"		//アイコン
+#packopt hide 1
+
+#epackdir "include/*"
+
+gsel 0,-1
+
+//==========================================================================
+#define dApplicationName       "InternetStroller"
+#define dApplicationCodeName   "Syncria"
+#define dApplicationVersion    "Alpha1"
+#define dApplicationVersionInt "4.0.0.0"
+
+#define dIsThisBuildDebug      true
+
+#define dTargetOperatingSystem "Windows"
+#define dTargetVersionLeast    "10.0"
+#define dTargetArchitecture    "x86-64"
+
+#define dRequireHSPVersion     14092
+
+//==========================================================================
+if dRequireHSPVersion>hspver { dialog "HSPバージョンが古いため実行できません",1,"mod_devtool" : end }
+
+#include "src/core/core.hsp"
+
+stop
+
+#include "src/lib/mod_openini.as"
