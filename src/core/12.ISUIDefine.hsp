@@ -1,0 +1,32 @@
+
+if getini_int("init","IsEnableStatusBar",0)=0{
+	create_statusbar ""
+	p=300,360,-1:sendmsg h_stbar,$404,3,varptr(p)		//ステータスバー分割
+	tmp=""+dApplicationName+" "+dApplicationCodeName+" ["+dApplicationVersion+"] "+dApplicationVersionInt
+	set_statusbar 0,tmp
+}
+
+	gosub *TAB_ADD
+	gsel 0,1
+
+	dim wndInfo, 7
+	hMenu = CreateMenu()
+	menuBuf(0) = getText("ui.button.goback")
+	menuBuf(1) = getText("ui.button.goforward")
+	menuBuf(2) = getText("ui.button.reload")
+	menuBuf(3) = getText("ui.button.navigate")
+	menuBuf(4) = getText("ui.button.newtab")
+	menuBuf(5) = getText("ui.button.deltab")
+	menuBuf(6) = getText("ui.button.version")
+	menuBuf(7) = "PNG"+getText("ui.button.capture")
+	menuBuf(8) = "PDF"+getText("ui.button.capture")
+	menuBuf(9) = getText("ui.button.download")
+	repeat length(menuBuf)
+		InsertMenu hMenu, -1, 0x400, 0x8000 + cnt, menuBuf(cnt)
+	loop
+	dim mi, 12 : mi = 48, 1 : mi(3) = 3
+	SetMenu hWnd0, hMenu
+	ldim lbCmd, length(menuBuf)
+	lbCmd(0) = *CMD_BACK, *CMD_FORWARD, *CMD_RELOAD, *CMD_NAVIGATE
+	lbCmd(4) = *CMD_NEW_TAB, *CMD_DEL_TAB, *CMD_VERSION, *CMD_CAPTURE
+	lbCmd(8) = *CMD_PRINTPDF, *CMD_DOWNLOAD

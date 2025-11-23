@@ -1,0 +1,85 @@
+*CMD_BACK
+	gosub *TAB_GETINFO
+	if ( pTabInfo ){ ret = CCall2(dpCtrl(1), WV2_get_GoBack, 0) }
+	return
+
+*CMD_FORWARD
+	gosub *TAB_GETINFO
+	if ( pTabInfo ){ ret = CCall2(dpCtrl(1), WV2_get_GoForward, 0) }
+	return
+
+*CMD_RELOAD
+	gosub *TAB_GETINFO
+	if ( pTabInfo ){ ret = CCall2(dpCtrl(1), WV2_Reload, 0) }
+	return
+
+*CMD_NAVIGATE
+	gosub *TAB_GETINFO
+	if ( pTabInfo == 0 ){ return }
+	p1 = (GetWindowTextLengthW(hEditUrl) + 1) * 2
+	sdim bufTmp, p1
+	GetWindowTextW hEditUrl, varptr(bufTmp), p1
+	ret = CCall2(dpCtrl(1), WV2_Navigate, 1, varptr(bufTmp))
+	return
+
+*CMD_NEW_TAB
+	gosub *TAB_ADD
+	return
+
+*CMD_DEL_TAB
+	gosub *TAB_DEL
+	return
+
+*CMD_VERSION
+	sdim tmp
+	#ifdef dIsThisBuildDebug
+    	tmp="<Debug>"
+    #endif
+    tmp+="\ndApplicationName		:"+dApplicationName
+    tmp+="\ndApplicationCodeName	:"+dApplicationCodeName
+    tmp+="\ndApplicationVersion	:"+dApplicationVersion
+    tmp+="\ndApplicationVersionInt	:"+dApplicationVersionInt
+    tmp+="\ndTargetOperatingSystem	:"+dTargetOperatingSystem
+    tmp+="\ndTargetVersionLeast	:"+dTargetVersionLeast
+    tmp+="\ndTargetArchitecture	:"+dTargetArchitecture
+    tmp+="\ndRequireHSPVersion	:"+dRequireHSPVersion
+    dialog tmp
+	return
+
+*CMD_CAPTURE
+	dialog "png", 17
+	if ( stat == 0 ){ return }
+	if ( SHCreateStreamOnFileEx(refstr, 0x1002, 0x80, 1, 0, p1) ){ return }
+	gosub *TAB_GETINFO
+	if ( pTabInfo == 0 ){ return }
+	dupptr dp, WV2_DATA_SIZE * 20 + pTabInfo, WV2_DATA_SIZE * 4, 4
+	WebView2_EventInit WV2_EVENT_CAPTURE, hWnd0, 0, dp
+	ret = CCall2(dpCtrl(1), WV2_CapturePreview, 3, 0, p1, dp)
+	WebView2_EventWait dp
+	WebView2_Release p1
+	return
+
+*CMD_PRINTPDF
+	if ( bPDF ){ return }
+	dialog "pdf", 17
+	if ( stat == 0 ){ return }
+	gosub *TAB_GETINFO
+	if ( pTabInfo == 0 ){ return }
+	bPDF = 1
+	mi(1) = 1 : mi(3) = 3
+	SetMenuItemInfo hMenu, 8, 1, varptr(mi)
+	DrawMenuBar hWnd0
+	dupptr dp, WV2_DATA_SIZE * 24 + pTabInfo, WV2_DATA_SIZE * 4, 4
+	WebView2_EventInit WV2_EVENT_PRINTTOPDF, hWnd0, 0x9005, dp
+	sdim bufTmp, (strlen(refstr) + 1) * 2
+	cnvstow bufTmp, refstr
+	ret = CCall2(dpCtrl(1), WV2_PrintToPdf, 3, varptr(bufTmp), 0, dp)
+	return stat
+
+*CMD_DOWNLOAD
+	gosub *TAB_GETINFO
+	if ( pTabInfo == 0 ){ return }
+	if ( CCall2(dpCtrl(1), WV2_IsDownloadDialogOpen, 1, varptr(p1)) ){ return }
+	if ( p1 ){ p1 = WV2_CloseDownloadDialog } else { p1 = WV2_OpenDownloadDialog }
+	ret = CCall2(dpCtrl(1), p1, 0)
+	return

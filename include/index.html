@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewTab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .search-container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0);
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #0056B3;
+        }
+
+        canvas {
+            border: 1px solid #333;
+            display: none;
+            margin: 20px auto;
+        }
+
+        #scoreDisplay {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        #uploadContainer {
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 200px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #online-status {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        #gameLink {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        table, th, td {
+            border: 1px #000000 solid;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Internet Stroller Syncria">
+        <button class="search-button" onclick="search('bing')">Microsoft Bing</button>
+        <button class="search-button" onclick="search('google')">Google</button>
+        <button class="search-button" onclick="search('duckduckgo')">DuckDuckGo</button>
+    </div>
+
+    <div id="online-status"></div>
+
+<script>
+    const onlineStatusDiv = document.getElementById('online-status');
+    const searchInput = document.querySelector('.search-input');
+
+    function search(engine) {
+        const searchInput = document.querySelector('.search-input').value;
+        let url;
+
+        if (engine === 'bing') {
+            url = `https://www.bing.com/search?q=${encodeURIComponent(searchInput)}`;
+        } else if (engine === 'google') {
+            url = `https://www.google.com/search?q=${encodeURIComponent(searchInput)}`;
+        } else if (engine === 'duckduckgo') {
+            url = `https://duckduckgo.com/?q=${encodeURIComponent(searchInput)}`;
+        }
+
+        window.location.href = url;
+    }
+
+    searchInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            search("bing");
+        }
+    });
+
+    function updateOnlineStatus() {
+        if (navigator.onLine) {
+            onlineStatusDiv.textContent = 'ONLINE';
+            onlineStatusDiv.style.color = 'green';
+        } else {
+            onlineStatusDiv.textContent = 'OFFLINE';
+            onlineStatusDiv.style.color = 'red';
+        }
+    }
+
+    updateOnlineStatus();
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    function applyColorScheme() {
+        const hash = window.location.hash.substring(1);
+        const colors = hash.split(',');
+
+        if (colors.length === 3) {
+            document.body.style.backgroundColor = `#${colors[0]}`;
+            document.body.style.color = `#${colors[1]}`;
+
+            const sections = document.querySelectorAll('.search-container, #online-status, #gameLink, #scoreDisplay, #uploadContainer');
+            sections.forEach(section => {
+                section.style.backgroundColor = `#${colors[2]}`;
+            });
+
+            canvas.style.backgroundColor = `#${colors[2]}`;
+        }
+    }
+
+    // ページ読み込み時に色スキームを適用
+    window.addEventListener('load', applyColorScheme);
+    // URLハッシュが変更された時に色スキームを適用
+    window.addEventListener('hashchange', applyColorScheme);
+
+    // スクリプトのロード時に色スキームを適用
+    applyColorScheme();
+</script>
+
+
+
+</body>
+</html>

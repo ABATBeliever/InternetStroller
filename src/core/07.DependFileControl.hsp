@@ -1,0 +1,4 @@
+exist dir_cur+"\\WebView2Loader.dll"
+if strsize=-1 {bcopy "include/WebView2Loader.dll",""+dir_cur+"/WebView2Loader.dll"}
+exist dir_cur+"\\index.html"
+if strsize=-1 {bcopy "include/index.html",""+dir_cur+"/index.html"}

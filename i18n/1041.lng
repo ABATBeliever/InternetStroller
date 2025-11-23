@@ -1,0 +1,24 @@
+; IntrenetStroller Language File
+[Head]
+VERSION=1A
+WRITER=ISSyncriaDefault
+LANGUAGE=日本語
+WRITEDAY=2025/11/23
+
+[Text]
+
+[Dialog]
+dialog.ossupporterror=お使いのオペレーティングシステム「{p1}」<br>はサポートされていません。<br><br>終了(Y)/無視して続行(N)
+dialog.wv2extracterror=WebView2の展開に失敗しました。<br>WebView2がインストールされていないか、書き込み権限がありません
+
+[UI]
+ui.button.goback=戻る
+ui.button.goforward=進む
+ui.button.reload=読込直し
+ui.button.navigate=URLへ移動
+ui.button.newtab=新しいタブ
+ui.button.clonetab=タブのクローン
+ui.button.deltab=タブを閉じる
+ui.button.version=バージョン情報
+ui.button.capture=キャプチャ
+ui.button.download=ダウンロード履歴

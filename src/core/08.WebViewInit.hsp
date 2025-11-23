@@ -1,0 +1,13 @@
+#include "src/lib/mod_WebView2.as"
+
+DEF_URL=getini_str("URLs","DefaultPageURL","include")
+if DEF_URL="include"{
+	DEF_URL="file://"+dir_cur+"/index.html"
+}
+
+WebView2_InitWnd 0
+hWnd0 = hwnd
+pEnv = WebView2_CreateEnv()
+
+if ( pEnv == 0 ){ dialog getText("dialog.wv2extracterror"),1 : end }
+curCtrl = 0 : curView = 0

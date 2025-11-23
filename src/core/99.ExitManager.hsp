@@ -1,0 +1,18 @@
+*HardShutdown
+	end
+
+*SoftShutdown
+	if ginfo(2)!=0 {	//0Ç≈ÇÕÇ»Ç¢èÍçáÇÕÇªÇÍÇîÒï\é¶Ç…Ç∑ÇÈ
+		gsel ginfo(2),-1
+	}
+
+	WebView2_Release pEnv
+	if ( hMenu ){ DestroyMenu hMenu }
+
+	gsel 0,-1
+	setini_int "UI","WindowSizeX",ginfo(10)
+	setini_int "UI","WindowSizeY",ginfo(11)
+	
+	setini_int "UI","WindowPosX" ,ginfo(4)
+	setini_int "UI","WindowPosY" ,ginfo(5)
+	end

@@ -1,0 +1,3 @@
+exist dir_cur+"\\ISConfig.ini"
+if strsize=-1 {bcopy "include/ISConfig.ini",""+dir_cur+"/ISConfig.ini"}
+setini_file dir_cur+"\\ISConfig.ini"

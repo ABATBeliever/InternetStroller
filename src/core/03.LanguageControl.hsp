@@ -1,0 +1,39 @@
+sdim Language
+Language=getini_str("init","Language","Auto")
+
+// ===================================================================
+// 言語ファイル展開
+sdim tmp
+dirlist tmp,"i18n",5
+if tmp="" {mkdir "i18n"}
+
+//ja
+exist dir_cur+"\\i18n\\1041.lng"
+if strsize=-1 {bcopy "include/1041.lng",""+dir_cur+"/i18n/1041.lng"}
+
+//en
+exist dir_cur+"\\locale\\1033.lng"
+if strsize=-1 {bcopy "include/1033.lng",""+dir_cur+"/i18n/1033.lng"}
+
+// ===================================================================
+// ロード
+if Language="Auto" {
+	//自動選択
+	Language=GetOSLanguages()
+	exist "include\\"+Language+".lng"
+	if strsize=-1 {
+		//無い場合
+		dialog "Your language code '"+Language+"' has no language file available.\nTherefore, English has been selected.\nYou can localize if you make 'i18n/"+Language+".lng' and restart.\nSee readme.txt for details.\n\nLock in English (Y)/Exit (N)",3,"Your Language isn't supported."
+		if stat=7 : end
+		Language=1033
+		setini_str "init","Language","1033"
+	}else{
+		//ある場合
+		setini_str "init","Language",str(Language)
+		Loadlng ""+Language+".lng"
+		dialog "'"+getText("LANGUAGE")+"' has been selected based on the system locale."
+	}
+}else{
+	//自動ではない場合
+	Loadlng ""+Language+".lng"
+}

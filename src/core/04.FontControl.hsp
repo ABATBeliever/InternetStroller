@@ -1,0 +1,2 @@
+font getini_str("init","Font","MS UI Gothic")
+objmode 2

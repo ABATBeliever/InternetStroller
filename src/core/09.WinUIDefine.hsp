@@ -1,0 +1,7 @@
+CreateWindowExA 0, "edit", 0, 0x56000080, 0, -50, 0, 0, hWnd0, 0, hinstance, 0
+hEditUrl = stat : sendmsg hEditUrl, WM_SETFONT, hFont, 1
+bufTmp = DEF_URL : SetWindowTextA hEditUrl, varptr(bufTmp)
+dim rc, 4 : dim tci, 7 : bAdd = 0 : bDel = 0
+CreateWindowExA 0, "SysTabControl32", 0, 0x56008468, 0, 0, 0, 0, hWnd0, 0, hinstance, 0
+hTab = stat : sendmsg hTab, WM_SETFONT, hFont, 1
+p1 = 0 << 16 : p1 |= 160 : sendmsg hTab, 0x1329, 0, p1

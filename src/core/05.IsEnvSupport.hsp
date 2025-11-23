@@ -1,0 +1,10 @@
+sdim tmp
+tmp=sysinfo(0)
+split tmp,"ver",tmp
+tmp=int(tmp(1))
+if tmp<10 {
+	tmp=getText("dialog.ossupporterror")
+	strrep tmp,"{p1}",sysinfo(0)
+	dialog tmp,3,""
+	if stat=6 : end
+}
